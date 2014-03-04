@@ -1,0 +1,49 @@
+﻿.flower {
+    position: absolute;
+    z-index: 100;
+    -moz-transform: rotate(15deg);
+    -ms-transform: rotate(15deg);
+    -o-transform: rotate(15deg);
+    -webkit-transform: rotate(15deg);
+    transform: rotate(15deg);
+    display: none;
+}
+ 
+.flower div{
+  width : 40%;
+  height : 40%;
+  margin : 1px;
+  float : left; 
+}
+
+.flower .middle{
+  width: 20%;
+  height: 20%;
+  background: #dfcb3f;
+  position: absolute;
+  top: 32%;
+  left:32%;
+  border-radius: 100px;
+}
+
+.flower .petal{
+    background: #fff;
+    box-shadow: inset pink 0 0 30px;
+}
+
+.flower .petal-1{
+  
+  border-radius: 100% 50% 0px 50%;
+}
+
+.flower .petal-2{
+  border-radius: 50% 100% 50% 0px;
+}
+
+.flower .petal-3{
+  border-radius: 50% 0px 50% 100%;
+}
+
+.flower .petal-4{
+  border-radius: 0px 50% 100% 50%;
+}

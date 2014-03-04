@@ -1,0 +1,14 @@
+﻿@import url(http://fonts.googleapis.com/css?family=Modern+Antiqua);
+
+.aparecium{
+    position:absolute;
+    width:400px;
+    height:300px;
+    top:100px;
+    left:50%;
+    margin-left: -200px;
+    font-size:50px;
+    color:#600;
+    text-align:center;
+    font-family: 'Modern Antiqua', 'Monotype Corsiva', 'Apple Chancery', 'ITC Zapf Chancery', 'URW Chancery L', cursive;
+}
