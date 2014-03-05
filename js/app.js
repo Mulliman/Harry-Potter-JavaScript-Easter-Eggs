@@ -5,7 +5,7 @@ var potter = new HarryPotter();
 var avis = new Avis();
 potter.addSpell(avis.name, avis.callback);
 
-var aparecium = new Aparecium("avada kedavra, crucio, engorgio, reducio, evanesco, lumos, nox, flipendo, furnuculus, rictusempra, obscuro, orchideous");
+var aparecium = new Aparecium("avada kedavra, crucio, engorgio, reducio, evanesco, lumos, nox, flipendo, furnuculus, rictusempra, obscuro, orchideous, petrificus totalus");
 potter.addSpell(aparecium.name, aparecium.callback);
 
 var avada = new AvadaKedavra("#5DBA24");
@@ -44,4 +44,20 @@ potter.addSpell(obscuro.name, obscuro.callback);
 var orchideous = new Orchideous();
 potter.addSpell(orchideous.name, orchideous.callback);
 
+var petrificusTotalus = new PetrificusTotalus();
+potter.addSpell(petrificusTotalus.name, petrificusTotalus.callback);
+
 potter.startListening();
+
+var amountOfSpells = potter.spells.length;
+
+for (var i = 0; i < amountOfSpells; i++) {
+
+    var spell = potter.spells[i];
+
+    var element = $("<div style='height:75px;'></div>");
+    element.html(spell.code);
+
+    $("body").append(element);
+}
+
