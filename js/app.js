@@ -8,7 +8,7 @@ potter.addSpell(avis.name, avis.callback);
 var aparecium = new Aparecium("avada kedavra, crucio, engorgio, reducio, evanesco, lumos, nox, flipendo, furnuculus, rictusempra, obscuro, orchideous, petrificus totalus");
 potter.addSpell(aparecium.name, aparecium.callback);
 
-var avada = new AvadaKedavra("#5DBA24");
+var avada = new AvadaKedavra();
 potter.addSpell(avada.name, avada.callback);
 
 var crucio = new Crucio(["#5DBA24", "Black", "Green", "Black", "#5DBA24", "#00DD00", "#5DBA24", "Black", "#119905", "Black", "#400", "#100"]);
@@ -46,6 +46,9 @@ potter.addSpell(orchideous.name, orchideous.callback);
 
 var petrificusTotalus = new PetrificusTotalus();
 potter.addSpell(petrificusTotalus.name, petrificusTotalus.callback);
+
+var stupefy = new Stupefy();
+potter.addSpell(stupefy.name, stupefy.callback);
 
 potter.startListening();
 

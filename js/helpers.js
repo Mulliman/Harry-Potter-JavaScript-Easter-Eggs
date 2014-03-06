@@ -67,3 +67,55 @@ var RandomGenerator = function () {
         return Math.round(Math.random() * (max - min) + min);
     }
 }
+
+var ElementFreezer = function () {
+    var self = this;
+
+    self.containerClass = "freeze-pane";
+    self.containerSelector = "." + self.containerClass;
+    self.containerMarkup = '<div class="' + self.containerClass + '"><div style="height:10000px"></div></div>';
+
+    self.freezeElement = function (element, freezeTime) {
+        element.css("overflow", "hidden");
+
+        var pane = $(self.containerMarkup);
+
+        pane.css("position", "fixed");
+        pane.css("width", "100%");
+        pane.css("height", "100%");
+        pane.css("top", "0");
+        pane.css("left", "0");
+        pane.css("overflow", "scroll");
+        pane.css("opacity", "0");
+        pane.css("z-index", "1000");
+
+        element.append(pane);
+
+        setTimeout(function () {
+            $(self.containerSelector).remove();
+            element.css("overflow", "");
+        }, freezeTime);
+    }
+};
+
+var ColourFlasher = function (animator) {
+    var self = this;
+
+    self.flashColour = function (parentElement, colour, flashSpeed, flashDuration, callback) {
+        parentElement.append(self.containerMarkup);
+
+        var container = $(self.containerSelector);
+        container.fadeOut(0);
+
+        container.css("background", colour);
+
+        animator.flash(container, flashSpeed, flashDuration, function () {
+            container.remove();
+            callback();
+        });
+    }
+
+    self.containerClass = "flash-aaahhh";
+    self.containerSelector = "." + self.containerClass;
+    self.containerMarkup = '<div style="position:fixed; width:100%; height:100%; top: 0; left: 0; z-index:1000;" class="' + self.containerClass + '"></div>';
+}
