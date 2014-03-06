@@ -1,12 +1,12 @@
 ﻿// Stupefy 
 // Red flash and stuns
 
-var Stupefy = function () {
+var Stupefy = function (animator, wand) {
     var self = this;
 
     self.name = "stupefy";
 
-    self.spellColour = "#D00";
+    self.spellColour = "rgba(200, 0, 0, 0.5)";
 
     self.callback = function () {
         var body = $("body");
@@ -14,10 +14,19 @@ var Stupefy = function () {
         var animator = new Animator();
         var flasher = new ColourFlasher(animator);
 
-        flasher.flashColour(body, self.spellColour, self.flashSpeed, self.flashTime, function () {
-            var elementFreezer = new ElementFreezer();
-            elementFreezer.freezeElement(body, self.freezeTime);
+        wand.showWand(function () {
+            wand.changeWandTipColour("#E00");
+            wand.pulsate();
+
+            setTimeout(function () {
+                flasher.flashColour(body, self.spellColour, self.flashSpeed, self.flashTime, function () {
+                    var elementFreezer = new ElementFreezer();
+                    elementFreezer.freezeElement(body, self.freezeTime);
+                });
+            }, 1000);
         });
+
+        
     }
 
     self.flashSpeed = 33;

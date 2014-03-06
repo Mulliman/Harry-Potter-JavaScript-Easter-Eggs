@@ -11,8 +11,8 @@ var Wand = function (animator) {
     self.isShining = false;
     self.isPulsating = false;
 
-    self.wandTipX = 0;
-    self.wandTipY = 0;
+    self.wandTipX = $(window).width() / 2;
+    self.wandTipY = $(window).height() / 2;;
 
     self.rootElement = $("body");
 
@@ -25,7 +25,7 @@ var Wand = function (animator) {
     self.wandTipElement;
 
     self.wandTipColour = "#FFF";
-    self.wandTipFadeSpeed = 1000;
+    self.wandTipFadeSpeed = 250;
     self.wandTipPulsateSpeed = 1000;
     self.wandTipPulsateDuration = 50000;
     self.wandTipPulsateMinOpactity = 0.85;
