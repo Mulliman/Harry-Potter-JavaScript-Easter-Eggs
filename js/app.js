@@ -2,6 +2,9 @@
 /// <reference path="spells/avis.js" />
 var potter = new HarryPotter();
 
+var animator = new Animator();
+var wand = new Wand(animator);
+
 var avis = new Avis();
 potter.addSpell(avis.name, avis.callback);
 
@@ -23,10 +26,10 @@ potter.addSpell(reducio.name, reducio.callback);
 var evanesco = new Evanesco();
 potter.addSpell(evanesco.name, evanesco.callback);
 
-var lumos = new Lumos();
+var lumos = new Lumos(wand);
 potter.addSpell(lumos.name, lumos.callback);
 
-var nox = new Nox();
+var nox = new Nox(wand);
 potter.addSpell(nox.name, nox.callback);
 
 var flipendo = new Flipendo();

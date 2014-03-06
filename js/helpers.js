@@ -59,10 +59,12 @@ var Animator = function () {
             });
         }, interval);
 
-        setTimeout(function () {
+        var timeoutId = setTimeout(function () {
             clearInterval(intervalId);
             if (callback instanceof Function) { callback(); }
         }, time);
+
+        return timeoutId;
     }
 
     self.flash = function (element, interval, time, callback) {

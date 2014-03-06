@@ -29,6 +29,7 @@ var Wand = function (animator) {
     self.wandTipPulsateSpeed = 1000;
     self.wandTipPulsateDuration = 50000;
     self.wandTipPulsateMinOpactity = 0.85;
+    self.wandTipPulsateId;
 
     self.wandTipDiameter = 30;
     self.wandTipGlowDiameter = 130;
@@ -40,6 +41,12 @@ var Wand = function (animator) {
     // -------
 
     self.showWand = function (callback) {
+
+        if (self.wandElement) {
+            callback();
+            return;
+        }
+
         var wand = self.createWandElement();
         self.rootElement.append(wand);
         self.wandElement = $(self.wandSelector);
@@ -58,13 +65,12 @@ var Wand = function (animator) {
         }
 
         self.destroyWandTipElement(function () {
-            self.wandElement.fadeOut(1000, function () {
-                self.wandElement.remove();
-            });
-
-            self.stopTrackingWandMovement();
-
-            self.isShown = false;
+            self.destroyWandElement(function () {
+                self.stopTrackingWandMovement();
+                self.isShown = false;
+                self.isShining = false;
+                self.isPulsating = false;
+            });            
         });
     }
 
@@ -72,8 +78,11 @@ var Wand = function (animator) {
         self.wandTipX = x;
         self.wandTipY = y;
 
-        var wandLeft = x - (self.wandTipDiameter / 2);
-        var wandTop = y - (self.wandTipDiameter / 2);
+        var wandLeft = x - (10 / 2);
+        var wandTop = y + (self.wandTipDiameter / 2);
+
+        var wandTipLeft = x - (self.wandTipDiameter / 2);
+        var wandTipTop = y - (self.wandTipDiameter / 2);
 
         if (self.wandElement instanceof jQuery) {
             self.wandElement.css("left", wandLeft + "px");
@@ -81,8 +90,8 @@ var Wand = function (animator) {
         }
 
         if (self.wandTipElement instanceof jQuery) {
-            self.wandTipElement.css("left", wandLeft + "px");
-            self.wandTipElement.css("top", wandTop + "px");
+            self.wandTipElement.css("left", wandTipLeft + "px");
+            self.wandTipElement.css("top", wandTipTop + "px");
         }
     }
 
@@ -103,13 +112,41 @@ var Wand = function (animator) {
     self.createWandElement = function(){
         var newWand = $('<div class="' + self.wandClass + '"></div>');
 
+        newWand.css("position", "absolute");
+        //newWand.css("background-color", "#531");
+        newWand.css("border-radius", "2px");
+        newWand.css("width", "10px");
+        //newWand.css("height", "200px");
+        newWand.css("z-index", "1990");
+        newWand.css("box-shadow", "inset #210 0 0 3px");
+
+        newWand.css("height", "0");
+        newWand.css("border-bottom", "150px solid #531");
+        newWand.css("border-left", "2px solid transparent");
+        newWand.css("border-right", "5px solid transparent");
+
+        if (self.wandTipX !== 0) {
+            var wandLeft = self.wandTipX - (10 / 2);
+            newWand.css("left", wandLeft + "px");
+        }
+
+        if (self.wandTipY !== 0) {
+            var wandTop = self.wandTipY + (self.wandTipDiameter / 2);
+            newWand.css("top", wandTop + "px");
+        }
+
         return newWand;
     }
 
-    self.destroyWandElement = function () {
-        var newWand = $('<div class="' + self.wandClass + '"></div>');
+    self.destroyWandElement = function (callback) {
+        if (self.wandElement === undefined) {
+            return;
+        }
 
-        return newWand;
+        self.wandElement.fadeOut(1000, function () {
+            self.wandElement.remove();
+            if (callback instanceof Function) { callback(); }
+        });
     }
 
     // Wand Light
@@ -120,8 +157,9 @@ var Wand = function (animator) {
             return;
         }
 
-        // Get rid of an old tip
-        self.destroyWandTipElement();
+        if (self.wandTipElement) {
+            return;
+        }
 
         // And create a new one.
         var wandTip = self.createWandTipElement(self.wandTipColour, self.wandTipDiameter, self.wandTipGlowDiameter)
@@ -139,6 +177,10 @@ var Wand = function (animator) {
             return;
         }
 
+        if (self.wandTipElement) {
+            return;
+        }
+
         // Get rid of an old tip
         self.destroyWandTipElement();
 
@@ -149,7 +191,7 @@ var Wand = function (animator) {
 
         wandTip.fadeOut(0);
         wandTip.fadeIn(self.wandTipFadeSpeed, function () {
-            animator.pulsate(self.wandTipElement, self.wandTipPulsateSpeed, self.wandTipPulsateDuration, self.wandTipPulsateMinOpactity, null);
+            self.wandTipPulsateId = animator.pulsate(self.wandTipElement, self.wandTipPulsateSpeed, self.wandTipPulsateDuration, self.wandTipPulsateMinOpactity, null);
             self.isPulsating = true;
         });
     }
@@ -159,9 +201,16 @@ var Wand = function (animator) {
             return;
         }
 
+        if (self.wandTipPulsateId !== null) {
+            clearTimeout(self.wandTipPulsateId);
+            self.wandTipPulsateId = null;
+        }
+
         self.destroyWandTipElement(function () {
+
             self.isShining = false;
             self.isPulsating = false;
+            self.wandTipElement = null;
 
             if (callback instanceof Function) { callback(); }
         });
@@ -187,6 +236,7 @@ var Wand = function (animator) {
         newWandTip.css("border-radius", "1000px");
         newWandTip.css("width", lightDiameter);
         newWandTip.css("height", lightDiameter);
+        newWandTip.css("z-index", "1991");
 
         if (self.wandTipX !== 0) {
             var wandLeft = self.wandTipX - (self.wandTipDiameter / 2);
@@ -225,7 +275,8 @@ var Wand = function (animator) {
     }
 
     self.destroyWandTipElement = function (callback) {
-        if (self.wandTipElement === undefined) {
+        if (typeof self.wandTipElement === 'undefined' || !self.wandTipElement) {
+            if (callback instanceof Function) { callback(); }
             return;
         }
 

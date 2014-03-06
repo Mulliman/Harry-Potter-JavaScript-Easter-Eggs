@@ -5,7 +5,7 @@
 // Lumos
 // Light
 
-var Lumos = function () {
+var Lumos = function (wand) {
     var self = this;
 
     self.name = "lumos";
@@ -28,12 +28,9 @@ var Lumos = function () {
     })();
 
     self.callback = function () {
-        var animator = new Animator();
-        var wand = new Wand(animator);
-
         wand.showWand(function () {
-            wand.wandTipX = self.x;
-            wand.wandTipY = self.y;
+            //wand.wandTipX = self.x;
+            //wand.wandTipY = self.y;
 
             wand.pulsate();
         });
