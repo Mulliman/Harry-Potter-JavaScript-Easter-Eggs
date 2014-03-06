@@ -1,4 +1,5 @@
 ﻿/// <reference path="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" />
+/// <reference path="../helpers.js" />
 
 // Crucio 
 // Torture
@@ -8,40 +9,21 @@ var Crucio = function (colours) {
 
     self.name = "crucio";
 
-    console.log(colours);
     self.spellColours = colours;
-    console.log(self.spellColours);
 
     self.callback = function () {
-        $("body").append(self.containerMarkup);
+        var body = $("body");
 
-        var container = $(self.containerSelector);
+        var animator = new Animator();
+        var randomGenerator = new RandomGenerator();
 
-        var amountOfColours = self.spellColours.length;
+        var randomColourFlasher = new RandomColourFlasher(animator, randomGenerator);
 
-        var intervalId = setInterval(function () {
-            var i = getRandomNumber(0, amountOfColours);
 
-            var colour = self.spellColours[i];
 
-            container.css("background", colour);
-        }, self.changeColourDelay);
-
-        setTimeout(function () {
-            clearInterval(intervalId);
-            container.remove();
-        }, self.stopAfterNMilliSeconds);
+        randomColourFlasher.flashColours(body, self.spellColours, self.changeColourDelay, self.changeColourDuration, null);
     }
 
-    self.containerClass = "crucio";
-    self.containerSelector = "." + self.containerClass;
-
-    self.containerMarkup = '<div style="position:absolute; width:100%; height:100%; top: 0; left: 0;" class="' + self.containerClass + '"></div>';
-
     self.changeColourDelay = 50;
-    self.stopAfterNMilliSeconds = 10000;
+    self.changeColourDuration = 10000;
 };
-
-function getRandomNumber(min, max) {
-    return Math.round(Math.random() * (max - min) + min);
-}

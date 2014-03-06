@@ -119,3 +119,35 @@ var ColourFlasher = function (animator) {
     self.containerSelector = "." + self.containerClass;
     self.containerMarkup = '<div style="position:fixed; width:100%; height:100%; top: 0; left: 0; z-index:1000;" class="' + self.containerClass + '"></div>';
 }
+
+var RandomColourFlasher = function (animator, randomGenerator) {
+    var self = this;
+
+    self.flashColours = function (parentElement, colours, flashSpeed, flashDuration, callback) {
+        parentElement.append(self.containerMarkup);
+
+        var container = $(self.containerSelector);
+
+        var amountOfColours = colours.length;
+
+        var intervalId = setInterval(function () {
+            var i = randomGenerator.getRandomNumber(0, amountOfColours);
+            var colour = colours[i];
+
+            container.css("background", colour);
+        }, flashSpeed);
+
+        setTimeout(function () {
+            clearInterval(intervalId);
+            container.remove();
+
+            if (callback !== null) {
+                callback();
+            }
+        }, flashDuration);
+    }
+
+    self.containerClass = "random-flash";
+    self.containerSelector = "." + self.containerClass;
+    self.containerMarkup = '<div style="position:fixed; width:100%; height:100%; top: 0; left: 0; z-index:1000;" class="' + self.containerClass + '"></div>';
+}
