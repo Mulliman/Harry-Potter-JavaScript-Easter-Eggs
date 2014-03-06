@@ -28,7 +28,7 @@ var Wand = function (animator) {
     self.wandTipFadeSpeed = 250;
     self.wandTipPulsateSpeed = 1000;
     self.wandTipPulsateDuration = 50000;
-    self.wandTipPulsateMinOpactity = 0.85;
+    self.wandTipPulsateMinOpactity = 0.75;
     self.wandTipPulsateId;
 
     self.wandTipDiameter = 30;
@@ -177,7 +177,7 @@ var Wand = function (animator) {
         });
     }
 
-    self.pulsate = function () {
+    self.pulsate = function (overrideSpeed) {
         if (self.isPulsating) {
             return;
         }
@@ -185,6 +185,8 @@ var Wand = function (animator) {
         if (self.wandTipElement) {
             return;
         }
+
+        overrideSpeed = overrideSpeed || self.wandTipPulsateSpeed;
 
         // Get rid of an old tip
         self.destroyWandTipElement();
@@ -196,7 +198,7 @@ var Wand = function (animator) {
 
         wandTip.fadeOut(0);
         wandTip.fadeIn(self.wandTipFadeSpeed, function () {
-            self.wandTipPulsateId = animator.pulsate(self.wandTipElement, self.wandTipPulsateSpeed, self.wandTipPulsateDuration, self.wandTipPulsateMinOpactity, null);
+            self.wandTipPulsateId = animator.pulsate(self.wandTipElement, overrideSpeed, self.wandTipPulsateDuration, self.wandTipPulsateMinOpactity, null);
             self.isPulsating = true;
         });
     }

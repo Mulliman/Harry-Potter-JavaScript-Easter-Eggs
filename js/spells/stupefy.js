@@ -1,7 +1,7 @@
 ﻿// Stupefy 
 // Red flash and stuns
 
-var Stupefy = function (animator, wand) {
+var Stupefy = function (animator, wand, flasher) {
     var self = this;
 
     self.name = "stupefy";
@@ -10,9 +10,6 @@ var Stupefy = function (animator, wand) {
 
     self.callback = function () {
         var body = $("body");
-
-        var animator = new Animator();
-        var flasher = new ColourFlasher(animator);
 
         wand.showWand(function () {
             wand.changeWandTipColour("#E00");
@@ -25,8 +22,6 @@ var Stupefy = function (animator, wand) {
                 });
             }, 1000);
         });
-
-        
     }
 
     self.flashSpeed = 33;

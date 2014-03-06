@@ -3,7 +3,7 @@
 // Avada Kedavra
 // Killing curse (possibly green)
 
-var AvadaKedavra = function () {
+var AvadaKedavra = function (wand, randomColourFlasher) {
     var self = this;
 
     self.name = "avada kedavra";
@@ -14,11 +14,15 @@ var AvadaKedavra = function () {
     self.callback = function () {
         var body = $("body");
 
-        var animator = new Animator();
-        var flasher = new ColourFlasher(animator);
+        wand.showWand(function () {
+            wand.changeWandTipColour("#5DBA24");
+            wand.pulsate(50);
 
-        flasher.flashColour(body, self.spellColour, self.flashSpeed, self.flashTime, function () {
-            window.location.replace(self.redirectUrl);
+            setTimeout(function () {
+                flasher.flashColour(body, self.spellColour, self.flashSpeed, self.flashTime, function () {
+                    window.location.replace(self.redirectUrl);
+                });
+            }, 1000);
         });
     }
 

@@ -2,6 +2,11 @@
 /// <reference path="spells/avis.js" />
 
 var animator = new Animator();
+var flasher = new ColourFlasher(animator);
+var randomGenerator = new RandomGenerator();
+var flasher = new ColourFlasher(animator);
+var randomColourFlasher = new RandomColourFlasher(animator, randomGenerator);
+
 var wand = new Wand(animator);
 
 var potter = new HarryPotter(wand);
@@ -12,10 +17,11 @@ potter.addSpell(avis.name, avis.callback);
 var aparecium = new Aparecium("avada kedavra, crucio, engorgio, reducio, evanesco, lumos, nox, flipendo, furnuculus, rictusempra, obscuro, orchideous, petrificus totalus");
 potter.addSpell(aparecium.name, aparecium.callback);
 
-var avada = new AvadaKedavra();
+var avada = new AvadaKedavra(wand, flasher);
 potter.addSpell(avada.name, avada.callback);
 
-var crucio = new Crucio(["#5DBA24", "Black", "Green", "Black", "#5DBA24", "#00DD00", "#5DBA24", "Black", "#119905", "Black", "#400", "#100"]);
+var crucioColours = ["#5DBA24", "Black", "Green", "Black", "#5DBA24", "#00DD00", "#5DBA24", "Black", "#119905", "Black", "#400", "#100"];
+var crucio = new Crucio(crucioColours, animator, randomColourFlasher, wand);
 potter.addSpell(crucio.name, crucio.callback);
 
 var engorgio = new Engorgio();
@@ -42,7 +48,7 @@ potter.addSpell(furnuculus.name, furnuculus.callback);
 var rictusempra = new Rictusempra();
 potter.addSpell(rictusempra.name, rictusempra.callback);
 
-var obscuro = new Obscuro();
+var obscuro = new Obscuro(animator, wand, flasher);
 potter.addSpell(obscuro.name, obscuro.callback);
 
 var orchideous = new Orchideous();
@@ -51,7 +57,7 @@ potter.addSpell(orchideous.name, orchideous.callback);
 var petrificusTotalus = new PetrificusTotalus();
 potter.addSpell(petrificusTotalus.name, petrificusTotalus.callback);
 
-var stupefy = new Stupefy(animator, wand);
+var stupefy = new Stupefy(animator, wand, flasher);
 potter.addSpell(stupefy.name, stupefy.callback);
 
 potter.startListening();

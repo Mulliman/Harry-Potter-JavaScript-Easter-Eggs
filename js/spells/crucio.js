@@ -4,7 +4,7 @@
 // Crucio 
 // Torture
 
-var Crucio = function (colours) {
+var Crucio = function (colours, animator, randomColourFlasher, wand) {
     var self = this;
 
     self.name = "crucio";
@@ -14,16 +14,16 @@ var Crucio = function (colours) {
     self.callback = function () {
         var body = $("body");
 
-        var animator = new Animator();
-        var randomGenerator = new RandomGenerator();
+        wand.showWand(function () {
+            wand.changeWandTipColour("#5DBA24");
+            wand.pulsate(50);
 
-        var randomColourFlasher = new RandomColourFlasher(animator, randomGenerator);
-
-
-
-        randomColourFlasher.flashColours(body, self.spellColours, self.changeColourDelay, self.changeColourDuration, null);
+            setTimeout(function () {
+                randomColourFlasher.flashColours(body, self.spellColours, self.changeColourDelay, self.changeColourDuration, null);
+            }, 1000);
+        });
     }
 
-    self.changeColourDelay = 50;
+    self.changeColourDelay = 500;
     self.changeColourDuration = 10000;
 };
