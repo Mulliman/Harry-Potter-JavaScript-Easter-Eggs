@@ -1,4 +1,6 @@
-﻿var BrowserDetails = function () {
+﻿/// <reference path="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" />
+
+var BrowserDetails = function () {
     var self = this;
 
     self.isOpera = !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
@@ -48,6 +50,21 @@ var Animator = function () {
         );
     }
 
+    self.pulsate = function (element, interval, time, minOpacity, callback) {
+        var stepTime = interval / 2;
+
+        var intervalId = setInterval(function () {
+            element.fadeTo(stepTime, minOpacity, function () {
+                element.fadeTo(stepTime, 1);
+            });
+        }, interval);
+
+        setTimeout(function () {
+            clearInterval(intervalId);
+            if (callback instanceof Function) { callback(); }
+        }, time);
+    }
+
     self.flash = function (element, interval, time, callback) {
         var intervalId = setInterval(function () {
             element.fadeToggle(10);
@@ -55,7 +72,7 @@ var Animator = function () {
 
         setTimeout(function () {
             clearInterval(intervalId);
-            callback();
+            if (callback instanceof Function) { callback(); }
         }, time);
     }
 }
