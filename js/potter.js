@@ -45,9 +45,15 @@
             if (codes.indexOf(spell.code) >= 0) {
                 spell.callback();
                 self.clearKeys();
+
+                self.wandTimeout = setTimeout(wand.hideWand, self.hideWandAfter);
             }
         }
     };
+
+    self.hideWandAfter = 15000;
+
+    self.wandTimeout;
 
     var getCodes = function (name) {
         var codes = [];

@@ -1,9 +1,10 @@
 ﻿/// <reference path="potter.js" />
 /// <reference path="spells/avis.js" />
-var potter = new HarryPotter();
 
 var animator = new Animator();
 var wand = new Wand(animator);
+
+var potter = new HarryPotter(wand);
 
 var avis = new Avis();
 potter.addSpell(avis.name, avis.callback);

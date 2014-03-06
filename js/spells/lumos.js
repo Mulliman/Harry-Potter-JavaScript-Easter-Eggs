@@ -10,28 +10,8 @@ var Lumos = function (wand) {
 
     self.name = "lumos";
 
-    self.x = 0;
-    self.y = 0;
-
-    (function () {
-        // On instatiation we need to set a listener up to keep track of
-        // the mouse so that lumos appears in the right place when triggered.
-        // When the trigger is called these will be replaced with a different callback.
-
-        $("body").mousemove(function (event) {
-            var x = event.pageX;
-            var y = event.pageY;
-
-            self.x = x;
-            self.y = y;
-        });
-    })();
-
     self.callback = function () {
         wand.showWand(function () {
-            //wand.wandTipX = self.x;
-            //wand.wandTipY = self.y;
-
             wand.pulsate();
         });
     };

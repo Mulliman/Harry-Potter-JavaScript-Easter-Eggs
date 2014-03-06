@@ -64,13 +64,18 @@ var Wand = function (animator) {
             return;
         }
 
-        self.destroyWandTipElement(function () {
-            self.destroyWandElement(function () {
-                self.stopTrackingWandMovement();
-                self.isShown = false;
-                self.isShining = false;
-                self.isPulsating = false;
-            });            
+        self.dim(function () {
+            self.destroyWandTipElement(function () {
+                self.destroyWandElement(function () {
+                    self.stopTrackingWandMovement();
+                    self.isShown = false;
+                    self.isShining = false;
+                    self.isPulsating = false;
+
+                    self.wandElement = null;
+                    self.wandTipElement = null;
+                });
+            });
         });
     }
 
