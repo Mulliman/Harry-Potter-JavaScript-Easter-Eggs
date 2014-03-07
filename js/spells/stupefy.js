@@ -12,15 +12,18 @@ var Stupefy = function (animator, wand, flasher) {
         var body = $("body");
 
         wand.showWand(function () {
-            wand.changeWandTipColour("#E00");
-            wand.pulsate();
+            wand.changeWandTipColour("#E00", function () {
+                wand.pulsate();
 
-            setTimeout(function () {
-                flasher.flashColour(body, self.spellColour, self.flashSpeed, self.flashTime, function () {
-                    var elementFreezer = new ElementFreezer();
-                    elementFreezer.freezeElement(body, self.freezeTime);
-                });
-            }, 1000);
+                setTimeout(function () {
+                    flasher.flashColour(body, self.spellColour, self.flashSpeed, self.flashTime, function () {
+                        var elementFreezer = new ElementFreezer();
+                        elementFreezer.freezeElement(body, self.freezeTime);
+
+                        wand.hideWand();
+                    });
+                }, 1000);
+            });
         });
     }
 

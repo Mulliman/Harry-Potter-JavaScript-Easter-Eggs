@@ -12,8 +12,9 @@ var Lumos = function (wand) {
 
     self.callback = function () {
         wand.showWand(function () {
-            wand.changeWandTipColour("#FFF");
-            wand.pulsate();
+            wand.changeWandTipColour("#FFF", function () {
+                wand.pulsate();
+            });
         });
     };
 };

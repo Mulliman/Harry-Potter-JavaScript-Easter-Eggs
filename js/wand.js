@@ -233,15 +233,27 @@ var Wand = function (animator) {
         });
     }
 
-    self.changeWandTipColour = function (newColour) {
+    self.changeWandTipColour = function (newColour, callback) {
         self.wandTipColour = newColour;
 
+        if (!self.isPulsating && !self.isShining)
+        {
+            if (callback instanceof Function) { callback(); }
+            return;
+        }
+
         if (self.isPulsating) {
-            self.dim(self.pulsate);
+            self.dim(function () {
+                self.pulsate();
+                if (callback instanceof Function) { callback(); }
+            });
         }
 
         if (self.isShining) {
-            self.dim(self.shine);
+            self.dim(function(){
+                self.shine();
+                if (callback instanceof Function) { callback(); }
+            });
         }
     }
 
