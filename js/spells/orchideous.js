@@ -1,7 +1,7 @@
 ﻿// Orchideous
 // Makes flowers
 
-var Orchideous = function () {
+var Orchideous = function (wand, randomGenerator) {
     var self = this;
 
     self.name = "orchideous";
@@ -16,15 +16,25 @@ var Orchideous = function () {
     self.callback = function () {
         var body = $("body");
 
-        var randomGenerator = new RandomGenerator();
+        wand.showWand(function () {
+            wand.changeWandTipColour("pink", function () {
+                wand.pulsate();
 
-        var intervalId = setInterval(function () {
-            self.addFlower(body, randomGenerator);
-        }, self.addDelay);
+                setTimeout(function () {
+                    var intervalId = setInterval(function () {
+                        self.addFlower(body, randomGenerator);
+                    }, self.addDelay);
 
-        setTimeout(function () {
-            clearInterval(intervalId);
-        }, self.showTime * 2);
+                    setTimeout(function () {
+                        clearInterval(intervalId);
+                    }, self.showTime * 2);
+
+                    setTimeout(function () {
+                        wand.hideWand();
+                    }, self.showTime * 3);
+                }, 1000);
+            });
+        });
     }
 
     self.addFlower = function (element, randomGenerator) {

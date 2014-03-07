@@ -52,7 +52,7 @@ potter.addSpell(rictusempra.name, rictusempra.callback);
 var obscuro = new Obscuro(animator, wand, flasher);
 potter.addSpell(obscuro.name, obscuro.callback);
 
-var orchideous = new Orchideous();
+var orchideous = new Orchideous(wand, randomGenerator);
 potter.addSpell(orchideous.name, orchideous.callback);
 
 var petrificusTotalus = new PetrificusTotalus(wand, flasher);
