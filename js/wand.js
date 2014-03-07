@@ -11,14 +11,17 @@ var Wand = function (animator) {
     self.isShining = false;
     self.isPulsating = false;
 
-    self.wandTipX = $(window).width() / 2;
-    self.wandTipY = $(window).height() / 2;;
+    self.mouseLocationX = $(window).width() / 2;
+    self.mouseLocationY = $(window).height() / 2;;
 
     self.rootElement = $("body");
 
     self.wandClass = "wand";
     self.wandSelector = "." + self.wandClass;
     self.wandElement;
+
+    self.wandWidth = 10;
+    self.wandLength = 130;
 
     self.wandTipClass = "wand-tip";
     self.wandTipSelector = "." + self.wandTipClass;
@@ -52,9 +55,16 @@ var Wand = function (animator) {
         self.wandElement = $(self.wandSelector);
 
         self.wandElement.fadeOut(0);
+
+        var wandLocation = self.getWandLocationsForPoint(self.mouseLocationX, self.mouseLocationY);
+        self.updateWandLocation(wandLocation);
+
         self.wandElement.fadeIn(500, function () {
             self.trackWandMovement(self.moveWand);
             self.isShown = true;
+
+            self.rootElement.css("cursor", "pointer");
+
             callback();
         });
     }
@@ -72,6 +82,8 @@ var Wand = function (animator) {
                     self.isShining = false;
                     self.isPulsating = false;
 
+                    self.rootElement.css("cursor", "");
+
                     self.wandElement = null;
                     self.wandTipElement = null;
                 });
@@ -80,23 +92,26 @@ var Wand = function (animator) {
     }
 
     self.moveWand = function (x, y) {
-        self.wandTipX = x;
-        self.wandTipY = y;
+        self.mouseLocationX = x;
+        self.mouseLocationY = y;
 
-        var wandLeft = x - (10 / 2);
-        var wandTop = y + (self.wandTipDiameter / 2);
+        var wandLocation = self.getWandLocationsForPoint(x, y);
+        self.updateWandLocation(wandLocation);
+    }
 
-        var wandTipLeft = x - (self.wandTipDiameter / 2);
-        var wandTipTop = y - (self.wandTipDiameter / 2);
-
+    self.updateWandLocation = function(wandLocation){
         if (self.wandElement instanceof jQuery) {
-            self.wandElement.css("left", wandLeft + "px");
-            self.wandElement.css("top", wandTop + "px");
+            self.wandElement.css("left", wandLocation.wandLeft + "px");
+            self.wandElement.css("top", wandLocation.wandTop + "px");
         }
 
+        self.updateWandTipLocation(wandLocation);
+    }
+
+    self.updateWandTipLocation = function (wandLocation) {
         if (self.wandTipElement instanceof jQuery) {
-            self.wandTipElement.css("left", wandTipLeft + "px");
-            self.wandTipElement.css("top", wandTipTop + "px");
+            self.wandTipElement.css("left", wandLocation.wandTipLeft + "px");
+            self.wandTipElement.css("top", wandLocation.wandTipTop + "px");
         }
     }
 
@@ -118,27 +133,19 @@ var Wand = function (animator) {
         var newWand = $('<div class="' + self.wandClass + '"></div>');
 
         newWand.css("position", "absolute");
-        //newWand.css("background-color", "#531");
+        newWand.css("background-color", "#531");
         newWand.css("border-radius", "2px");
-        newWand.css("width", "10px");
-        //newWand.css("height", "200px");
+        newWand.css("width", self.wandWidth + "px");
+        newWand.css("height", self.wandLength + "px");
         newWand.css("z-index", "1990");
         newWand.css("box-shadow", "inset #210 0 0 3px");
 
         newWand.css("height", "0");
-        newWand.css("border-bottom", "150px solid #531");
-        newWand.css("border-left", "2px solid transparent");
-        newWand.css("border-right", "5px solid transparent");
+        newWand.css("border-bottom", self.wandLength + "px solid #531");
 
-        if (self.wandTipX !== 0) {
-            var wandLeft = self.wandTipX - (10 / 2);
-            newWand.css("left", wandLeft + "px");
-        }
-
-        if (self.wandTipY !== 0) {
-            var wandTop = self.wandTipY + (self.wandTipDiameter / 2);
-            newWand.css("top", wandTop + "px");
-        }
+        //var taper = self.wandWidth / 2;
+        //newWand.css("border-left", taper + "px solid transparent");
+        //newWand.css("border-right", taper + "px solid transparent");
 
         return newWand;
     }
@@ -196,6 +203,9 @@ var Wand = function (animator) {
         self.rootElement.append(wandTip);
         self.wandTipElement = $(self.wandTipSelector);
 
+        var wandLocation = self.getWandLocationsForPoint(self.mouseLocationX, self.mouseLocationY);
+        self.updateWandLocation(wandLocation);
+
         wandTip.fadeOut(0);
         wandTip.fadeIn(self.wandTipFadeSpeed, function () {
             self.wandTipPulsateId = animator.pulsate(self.wandTipElement, overrideSpeed, self.wandTipPulsateDuration, self.wandTipPulsateMinOpactity, null);
@@ -245,16 +255,6 @@ var Wand = function (animator) {
         newWandTip.css("height", lightDiameter);
         newWandTip.css("z-index", "1991");
 
-        if (self.wandTipX !== 0) {
-            var wandLeft = self.wandTipX - (self.wandTipDiameter / 2);
-            newWandTip.css("left", wandLeft + "px");
-        }
-
-        if (self.wandTipY !== 0) {
-            var wandTop = self.wandTipY - (self.wandTipDiameter / 2);
-            newWandTip.css("top", wandTop + "px");
-        }
-
         var shadowWidths = [];
 
         // Lets Fibonacci this!
@@ -291,5 +291,26 @@ var Wand = function (animator) {
             self.wandTipElement.remove();
             if (callback instanceof Function) { callback(); }
         });
+    }
+
+    // Size and Location Data
+    // ----------------------
+
+    self.getWandLocationsForPoint = function (x, y) {
+        var data = {};
+
+        data.wandCenter = x;
+        data.wandLeft = data.wandCenter - self.wandWidth / 2;
+        data.wandRight = data.wandCenter + self.wandWidth / 2;
+
+        // We add a little gap above the wand so that the user can still select bits.
+        data.wandBottom =  y - 1;
+        data.wandTop = data.wandBottom - self.wandLength;
+
+        var tipRadius = self.wandTipDiameter / 2;
+        data.wandTipTop = data.wandTop - self.wandTipDiameter;
+        data.wandTipLeft = data.wandCenter - tipRadius;
+
+        return data;
     }
 }
