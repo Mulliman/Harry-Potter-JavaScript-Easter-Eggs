@@ -2,7 +2,7 @@
 // Petrificus Totalus 
 // Stops the user from moving.
 
-var PetrificusTotalus = function () {
+var PetrificusTotalus = function (wand, flasher) {
     var self = this;
 
     self.name = "petrificus totalus";
@@ -10,10 +10,25 @@ var PetrificusTotalus = function () {
     self.callback = function () {
         var body = $("body");
 
-        var elementFreezer = new ElementFreezer();
+        wand.showWand(function () {
+            wand.changeWandTipColour("#FFF", function () {
+                wand.pulsate(250);
 
-        elementFreezer.freezeElement(body, self.time);
+                setTimeout(function () {
+                    flasher.flashColour(body, self.spellColour, self.flashSpeed, self.flashTime, function () {
+                        var elementFreezer = new ElementFreezer();
+                        elementFreezer.freezeElement(body, self.freezeTime, function () {
+                            wand.hideWand();
+                        });
+                    });
+                }, 1000);
+            });
+        });
     }
 
-    self.time = 10000;
+    self.spellColour = "#DDD";
+
+    self.flashSpeed = 33;
+    self.flashTime = 250;
+    self.freezeTime = 10000;
 };

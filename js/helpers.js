@@ -123,7 +123,7 @@ var ElementFreezer = function () {
     self.containerSelector = "." + self.containerClass;
     self.containerMarkup = '<div class="' + self.containerClass + '"><div style="height:10000px"></div></div>';
 
-    self.freezeElement = function (element, freezeTime) {
+    self.freezeElement = function (element, freezeTime, callback) {
         element.css("overflow", "hidden");
 
         var pane = $(self.containerMarkup);
@@ -142,6 +142,7 @@ var ElementFreezer = function () {
         setTimeout(function () {
             $(self.containerSelector).remove();
             element.css("overflow", "");
+            if (callback instanceof Function) { callback(); }
         }, freezeTime);
     }
 };

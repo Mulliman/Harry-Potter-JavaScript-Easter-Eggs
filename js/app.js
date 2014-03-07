@@ -55,7 +55,7 @@ potter.addSpell(obscuro.name, obscuro.callback);
 var orchideous = new Orchideous();
 potter.addSpell(orchideous.name, orchideous.callback);
 
-var petrificusTotalus = new PetrificusTotalus();
+var petrificusTotalus = new PetrificusTotalus(wand, flasher);
 potter.addSpell(petrificusTotalus.name, petrificusTotalus.callback);
 
 var stupefy = new Stupefy(animator, wand, flasher);
