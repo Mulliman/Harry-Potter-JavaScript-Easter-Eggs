@@ -25,10 +25,10 @@ var crucioColours = ["#5DBA24", "Black", "Green", "Black", "#5DBA24", "#00DD00",
 var crucio = new Crucio(crucioColours, animator, randomColourFlasher, wand);
 potter.addSpell(crucio.name, crucio.callback);
 
-var engorgio = new Engorgio();
+var engorgio = new Engorgio(wand, animator);
 potter.addSpell(engorgio.name, engorgio.callback);
 
-var reducio = new Reducio();
+var reducio = new Reducio(wand, animator);
 potter.addSpell(reducio.name, reducio.callback);
 
 var evanesco = new Evanesco();

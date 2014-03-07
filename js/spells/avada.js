@@ -15,14 +15,16 @@ var AvadaKedavra = function (wand, randomColourFlasher) {
         var body = $("body");
 
         wand.showWand(function () {
-            wand.changeWandTipColour("#5DBA24");
-            wand.pulsate(50);
+            wand.changeWandTipColour("#5DBA24", function () {
+                wand.pulsate(50);
 
-            setTimeout(function () {
-                flasher.flashColour(body, self.spellColour, self.flashSpeed, self.flashTime, function () {
-                    window.location.replace(self.redirectUrl);
-                });
-            }, 1000);
+                setTimeout(function () {
+                    flasher.flashColour(body, self.spellColour, self.flashSpeed, self.flashTime, function () {
+                        window.location.replace(self.redirectUrl);
+                    });
+                }, 1000);
+            });
+            
         });
     }
 

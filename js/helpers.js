@@ -18,12 +18,12 @@ var Animator = function () {
     self.changeSize = function (element, zoom, speed) {
         var browserDetails = new BrowserDetails();
 
-        if (browserDetails.isFirefox) {
+        //if (browserDetails.isFirefox) {
             self.changeTextSize(element, zoom, speed)
-        }
-        else {
-            self.zoom(element, zoom, speed);
-        }
+        //}
+        //else {
+        //    self.zoom(element, zoom, speed);
+        //}
     }
 
     self.zoom = function (element, zoom, speed) {
@@ -76,6 +76,10 @@ var Animator = function () {
             clearInterval(intervalId);
             if (callback instanceof Function) { callback(); }
         }, time);
+    }
+
+    function isNumber(n) {
+        return !isNaN(parseFloat(n)) && isFinite(n);
     }
 }
 

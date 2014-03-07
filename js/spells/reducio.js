@@ -1,7 +1,7 @@
 ﻿// Reducio
 // Make smaller
 
-var Reducio = function () {
+var Reducio = function (wand, animator) {
     var self = this;
 
     self.name = "reducio";
@@ -9,15 +9,20 @@ var Reducio = function () {
     self.callback = function () {
         var body = $("body");
 
-        var animator = new Animator();
+        wand.showWand(function () {
+            wand.changeWandTipColour("#CCF", function () {
+                wand.pulsate();
 
-        animator.changeSize(body, 0.5, self.speed);
+                animator.changeSize(body, 0.5, self.speed);
 
-        setTimeout(function () {
-            animator.changeSize(body, 1, self.speed);
-        }, self.stopAfterNMilliSeconds);
+                setTimeout(function () {
+                    animator.changeSize(body, 1, self.speed);
+                    wand.hideWand();
+                }, self.duration);
+            });
+        });
     }
 
     self.speed = 1500;
-    self.stopAfterNMilliSeconds = 10000;
+    self.duration = 10000;
 };
