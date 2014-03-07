@@ -14,7 +14,8 @@ var potter = new HarryPotter(wand);
 var avis = new Avis();
 potter.addSpell(avis.name, avis.callback);
 
-var aparecium = new Aparecium("avada kedavra, crucio, engorgio, reducio, evanesco, lumos, nox, flipendo, furnuculus, rictusempra, obscuro, orchideous, petrificus totalus");
+var words = "avada kedavra, crucio, engorgio, reducio, evanesco, lumos, nox, flipendo, furnuculus, rictusempra, obscuro, orchideous, petrificus totalus";
+var aparecium = new Aparecium(wand, words);
 potter.addSpell(aparecium.name, aparecium.callback);
 
 var avada = new AvadaKedavra(wand, flasher);

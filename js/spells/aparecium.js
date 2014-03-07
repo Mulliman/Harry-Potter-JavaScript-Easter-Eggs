@@ -3,10 +3,10 @@
 // Aparecium
 // Show invisible ink
 
-var Aparecium = function (textToAppear) {
+var Aparecium = function (wand, textToAppear) {
     var self = this;
 
-    self.text = textToAppear ? textToAppear : "Tom Marvolo Riddle";
+    self.text = textToAppear || "Tom Marvolo Riddle";
 
     self.name = "aparecium";
 
@@ -14,16 +14,24 @@ var Aparecium = function (textToAppear) {
         $("body").append(self.containerMarkup);
 
         var container = $(self.containerSelector);
-
         container.fadeOut(0);
 
-        container.fadeIn(self.fadeInTime, function () {
-            setTimeout(function () {
-                container.fadeOut(self.fadeOutTime);
-            }, self.fadeOutTime);
-        });
+        wand.showWand(function () {
 
-        $("body").remove(self.containerSelector);
+            wand.changeWandTipColour("#715", function () {
+                wand.pulsate();
+
+                container.fadeIn(self.fadeInTime, function () {
+                    setTimeout(function () {
+                        container.fadeOut(self.fadeOutTime, function(){
+                            $(self.containerSelector).remove();
+                            wand.hideWand();
+                        });
+                    }, self.showTime);
+                });
+
+            });
+        });
     }
 
     self.containerClass = "aparecium";
