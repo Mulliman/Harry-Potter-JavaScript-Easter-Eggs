@@ -31,7 +31,7 @@ potter.addSpell(engorgio.name, engorgio.callback);
 var reducio = new Reducio(wand, animator);
 potter.addSpell(reducio.name, reducio.callback);
 
-var evanesco = new Evanesco();
+var evanesco = new Evanesco(wand, flasher);
 potter.addSpell(evanesco.name, evanesco.callback);
 
 var lumos = new Lumos(wand);

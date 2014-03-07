@@ -151,6 +151,7 @@ var ColourFlasher = function (animator) {
     var self = this;
 
     self.flashColour = function (parentElement, colour, flashSpeed, flashDuration, callback) {
+
         parentElement.append(self.containerMarkup);
 
         var container = $(self.containerSelector);
@@ -160,7 +161,7 @@ var ColourFlasher = function (animator) {
 
         animator.flash(container, flashSpeed, flashDuration, function () {
             container.remove();
-            callback();
+            if (callback instanceof Function) { callback(); }
         });
     }
 

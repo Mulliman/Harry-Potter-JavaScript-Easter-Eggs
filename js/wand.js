@@ -65,12 +65,13 @@ var Wand = function (animator) {
 
             self.rootElement.css("cursor", "pointer");
 
-            callback();
+            if (callback instanceof Function) { callback(); }
         });
     }
 
-    self.hideWand = function () {
+    self.hideWand = function (callback) {
         if (self.wandElement === undefined) {
+            if (callback instanceof Function) { callback(); }
             return;
         }
 
@@ -86,6 +87,8 @@ var Wand = function (animator) {
 
                     self.wandElement = null;
                     self.wandTipElement = null;
+
+                    if (callback instanceof Function) { callback(); }
                 });
             });
         });
@@ -152,10 +155,11 @@ var Wand = function (animator) {
 
     self.destroyWandElement = function (callback) {
         if (self.wandElement === undefined) {
+            if (callback instanceof Function) { callback(); }
             return;
         }
 
-        self.wandElement.fadeOut(1000, function () {
+        self.wandElement.fadeOut(500, function () {
             self.wandElement.remove();
             if (callback instanceof Function) { callback(); }
         });
@@ -215,6 +219,7 @@ var Wand = function (animator) {
 
     self.dim = function (callback) {
         if (!self.isPulsating && !self.isShining) {
+            if (callback instanceof Function) { callback(); }
             return;
         }
 
@@ -224,7 +229,6 @@ var Wand = function (animator) {
         }
 
         self.destroyWandTipElement(function () {
-
             self.isShining = false;
             self.isPulsating = false;
             self.wandTipElement = null;
@@ -294,6 +298,7 @@ var Wand = function (animator) {
     }
 
     self.destroyWandTipElement = function (callback) {
+
         if (typeof self.wandTipElement === 'undefined' || !self.wandTipElement) {
             if (callback instanceof Function) { callback(); }
             return;
