@@ -14,10 +14,10 @@ var Engorgio = function (wand, animator) {
             wand.changeWandTipColour("#7bF", function () {
                 wand.pulsate();
 
-                animator.changeSize(body, 1.5, self.speed);
+                animator.changeTextSize(body, 1.5, self.speed);
 
                 setTimeout(function () {
-                    animator.changeSize(body, 1, self.speed);
+                    animator.changeTextSize(body, 1, self.speed);
                     wand.hideWand();
                 }, self.duration);
             });

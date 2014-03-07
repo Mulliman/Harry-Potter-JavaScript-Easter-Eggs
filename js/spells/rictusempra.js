@@ -2,15 +2,13 @@
 // Rictusempra
 // Tickle
 
-var Rictusempra = function () {
+var Rictusempra = function (wand, animator) {
     var self = this;
 
     self.name = "rictusempra";
 
     self.callback = function () {
         var body = $("body");
-
-        var animator = new Animator();
 
         var currentRotation = self.rotateAmount;
 

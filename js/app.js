@@ -40,7 +40,7 @@ potter.addSpell(lumos.name, lumos.callback);
 var nox = new Nox(wand);
 potter.addSpell(nox.name, nox.callback);
 
-var flipendo = new Flipendo();
+var flipendo = new Flipendo(wand, animator);
 potter.addSpell(flipendo.name, flipendo.callback);
 
 var furnuculus = new Furnunculus();

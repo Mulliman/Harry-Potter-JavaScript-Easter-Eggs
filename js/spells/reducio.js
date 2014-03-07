@@ -10,13 +10,13 @@ var Reducio = function (wand, animator) {
         var body = $("body");
 
         wand.showWand(function () {
-            wand.changeWandTipColour("#CCF", function () {
+            wand.changeWandTipColour("#7bF", function () {
                 wand.pulsate();
 
-                animator.changeSize(body, 0.5, self.speed);
+                animator.changeTextSize(body, 0.5, self.speed);
 
                 setTimeout(function () {
-                    animator.changeSize(body, 1, self.speed);
+                    animator.changeTextSize(body, 1, self.speed);
                     wand.hideWand();
                 }, self.duration);
             });

@@ -15,7 +15,7 @@ var BrowserDetails = function () {
 var Animator = function () {
     var self = this;
 
-    self.changeSize = function (element, zoom, speed) {
+    self.changeTextSize = function (element, zoom, speed) {
         var browserDetails = new BrowserDetails();
 
         //if (browserDetails.isFirefox) {
@@ -38,13 +38,38 @@ var Animator = function () {
         }, speed);
     }
 
-    self.rotate = function (element, rotateTo, speed) {
-        element.stop().animate(
+    self.rotate = function (element, rotateTo, speed, callback) {
+        element.animate(
           { rotation: rotateTo },
           {
               duration: speed,
               step: function (now, fx) {
                   $(this).css({ "transform": "rotate(" + now + "deg)" });
+              },
+              complete: function () {
+                  if (callback instanceof Function) { callback(); }
+              }
+          }
+        );
+    }
+
+    self.rotateAndZoom = function (element, rotateTo, zoomTo, speed, callback) {
+        element.animate(
+          {
+              rotation: rotateTo,
+              zoom: zoomTo
+          },
+          {
+              duration: speed,
+              step: function (now, fx) {
+                  if (fx.prop === "rotation") {
+                      $(this).css({ "transform": "rotate(" + now + "deg)" });
+                  } else if (fx.prop === "zoom") {
+                      $(this).css({ "zoom": now + "em" });
+                  }
+              },
+              complete: function () {
+                  if (callback instanceof Function) { callback(); }
               }
           }
         );

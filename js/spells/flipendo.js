@@ -2,7 +2,7 @@
 // Flipendo
 // Knocks object backwords
 
-var Flipendo = function () {
+var Flipendo = function (wand, animator) {
     var self = this;
 
     self.name = "flipendo";
@@ -10,11 +10,27 @@ var Flipendo = function () {
     self.callback = function () {
         var body = $("body");
 
-        var animator = new Animator();
+        wand.showWand(function () {
+            wand.changeWandTipColour("#27F", function () {
+                wand.pulsate();
 
-        animator.rotate(body, 360, self.rotateTime);
+                setTimeout(function () {
+                    animator.rotateAndZoom(body, 1080, 0.25, self.rotateTime, function () {
+
+                        body.css("transform", "rotate(0deg)");
+
+                        setTimeout(function () {
+                            animator.rotateAndZoom(body, 360, 1, self.rotateTime, function () {
+                                body.css("transform", "rotate(0deg)");
+                            });
+                        }, 500);
+                    });
+                }, 1000);
+
+                setTimeout(wand.hideWand, self.rotateTime * 3);
+            });
+        });
     }
 
     self.rotateTime = 500;
-    self.showTime = 5000;
 };
