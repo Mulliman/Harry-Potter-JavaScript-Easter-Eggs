@@ -2,7 +2,7 @@
 // Furnunculus 
 // Covered in boils
 
-var Furnunculus = function () {
+var Furnunculus = function (wand, randomGenerator) {
     var self = this;
 
     self.name = "furnunculus";
@@ -13,15 +13,24 @@ var Furnunculus = function () {
     self.callback = function () {
         var body = $("body");
 
-        var randomGenerator = new RandomGenerator();
+        wand.showWand(function () {
+            wand.changeWandTipColour("#FF6421", function () {
+                wand.pulsate();
 
-        var intervalId = setInterval(function () {
-            self.addBoil(body, randomGenerator);
-        }, self.addDelay);
+                var intervalId = setInterval(function () {
+                    self.addBoil(body, randomGenerator);
+                }, self.addDelay);
 
-        setTimeout(function () {
-            clearInterval(intervalId);
-        }, self.showTime * 2);
+                setTimeout(function () {
+                    clearInterval(intervalId);
+                }, self.showTime * 2);
+
+                setTimeout(function () {
+                    wand.hideWand();
+                }, self.showTime * 3);
+            });
+        });
+        
     }
 
     self.addBoil = function (element, randomGenerator) {
