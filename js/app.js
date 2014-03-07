@@ -29,6 +29,9 @@ var mosColours = ["Black", "#111", "#151515", "#050505", "090909"];
 var morsmordre = new Morsmordre(mosColours, randomColourFlasher, wand, "img/dark-mark-green.png");
 potter.addSpell(morsmordre.name, morsmordre.callback);
 
+var expecto = new ExpectoPatronum(flasher, wand, randomGenerator, ["img/deer.png", "img/fox.png", "img/owl.png"]);
+potter.addSpell(expecto.name, expecto.callback);
+
 var engorgio = new Engorgio(wand, animator);
 potter.addSpell(engorgio.name, engorgio.callback);
 

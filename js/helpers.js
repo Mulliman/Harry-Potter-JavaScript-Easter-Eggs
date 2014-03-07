@@ -165,6 +165,25 @@ var ColourFlasher = function (animator) {
         });
     }
 
+    self.fadeColour = function (parentElement, colour, flashSpeed, flashDuration, callback) {
+
+        parentElement.append(self.containerMarkup);
+
+        var container = $(self.containerSelector);
+        container.fadeOut(0);
+
+        container.css("background", colour);
+
+        container.fadeIn(flashSpeed, function () {
+            setTimeout(function () {
+                container.fadeOut(flashSpeed, function () {
+                    container.remove();
+                    if (callback instanceof Function) { callback(); }
+                });
+            }, flashDuration);
+        });
+    }
+
     self.containerClass = "flash-aaahhh";
     self.containerSelector = "." + self.containerClass;
     self.containerMarkup = '<div style="position:fixed; width:100%; height:100%; top: 0; left: 0; z-index:1000;" class="' + self.containerClass + '"></div>';

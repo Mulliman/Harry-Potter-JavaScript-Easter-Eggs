@@ -177,10 +177,16 @@ var Wand = function (animator) {
             return;
         }
 
+        // Get rid of an old tip
+        self.destroyWandTipElement();
+
         // And create a new one.
         var wandTip = self.createWandTipElement(self.wandTipColour, self.wandTipDiameter, self.wandTipGlowDiameter)
         self.rootElement.append(wandTip);
         self.wandTipElement = $(self.wandTipSelector);
+
+        var wandLocation = self.getWandLocationsForPoint(self.mouseLocationX, self.mouseLocationY);
+        self.updateWandLocation(wandLocation);
 
         wandTip.fadeOut(0);
         wandTip.fadeIn(self.wandTipFadeSpeed, function () {
