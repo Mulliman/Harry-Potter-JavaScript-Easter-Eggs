@@ -17,9 +17,8 @@ var PetrificusTotalus = function (wand, flasher) {
                 setTimeout(function () {
                     flasher.flashColour(body, self.spellColour, self.flashSpeed, self.flashTime, function () {
                         var elementFreezer = new ElementFreezer();
-                        elementFreezer.freezeElement(body, self.freezeTime, function () {
-                            wand.hideWand();
-                        });
+                        elementFreezer.freezeElement(body, self.freezeTime);
+                        wand.hideWand();
                     });
                 }, 1000);
             });
