@@ -192,7 +192,7 @@ var RandomColourFlasher = function (animator, randomGenerator) {
             container.remove();
 
             if (callback !== null) {
-                callback();
+                if (callback instanceof Function) { callback(); }
             }
         }, flashDuration);
     }

@@ -25,6 +25,10 @@ var crucioColours = ["#5DBA24", "Black", "Green", "Black", "#5DBA24", "#00DD00",
 var crucio = new Crucio(crucioColours, animator, randomColourFlasher, wand);
 potter.addSpell(crucio.name, crucio.callback);
 
+var mosColours = ["Black", "#111", "#151515", "#050505", "090909"];
+var morsmordre = new Morsmordre(mosColours, randomColourFlasher, wand, "img/dark-mark-green.png");
+potter.addSpell(morsmordre.name, morsmordre.callback);
+
 var engorgio = new Engorgio(wand, animator);
 potter.addSpell(engorgio.name, engorgio.callback);
 
