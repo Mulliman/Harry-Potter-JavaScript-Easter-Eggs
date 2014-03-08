@@ -1,7 +1,7 @@
 ﻿// Expecto Patronum 
 // Makes a patronus / white light
 
-var ExpectoPatronum  = function (flasher, wand, randomGenerator, imageSrcs) {
+var ExpectoPatronum = function (flasher, wand, randomGenerator, imageSrcs) {
     var self = this;
 
     self.name = "expecto patronum";
@@ -55,7 +55,7 @@ var ExpectoPatronum  = function (flasher, wand, randomGenerator, imageSrcs) {
     self.containerClass = "expecto";
     self.containerSelector = "." + self.containerClass;
 
-    self.containerMarkup = '<div style="width:100%; height:100%; line-height:100%; position:fixed; top:0; left:0; text-align:center; z-index:1999;" class="' + self.containerClass + '"></div>';
+    self.containerMarkup = '<div style="width:100%; height:100%; line-height:100%; position:fixed; top:0; left:0; text-align:center; z-index:1999; background:rgba(0,0,0,0.75)" class="' + self.containerClass + '"></div>';
 
     self.imageClass = "expecto-image";
     self.imageSelector = "." + self.imageClass;

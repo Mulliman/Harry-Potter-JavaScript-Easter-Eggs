@@ -12,21 +12,29 @@ var Rictusempra = function (wand, animator) {
 
         var currentRotation = self.rotateAmount;
 
-        var intervalId = setInterval(function () {
-            animator.rotate(body, currentRotation, self.interval);
+        wand.showWand(function () {
+            wand.changeWandTipColour("#DDD", function () {
+                wand.pulsate(250);
 
-            // Reverse the rotation.
-            currentRotation = currentRotation * -1;
-        }, self.interval);
+                var intervalId = setInterval(function () {
+                    animator.rotate(body, currentRotation, self.interval);
 
-        setTimeout(function () {
-            clearInterval(intervalId);
+                    // Reverse the rotation.
+                    currentRotation = currentRotation * -1;
+                }, self.interval);
 
-            animator.rotate(body, 0, self.rotateTime);
-        }, self.showTime);
+                setTimeout(function () {
+                    clearInterval(intervalId);
+
+                    wand.hideWand();
+
+                    animator.rotate(body, 0, self.rotateTime);
+                }, self.showTime);
+            });
+        });
     }
 
-    self.rotateAmount = 30;
-    self.interval = 250;
+    self.rotateAmount = 5;
+    self.interval = 100;
     self.showTime = 5000;
 };

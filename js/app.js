@@ -53,7 +53,7 @@ potter.addSpell(flipendo.name, flipendo.callback);
 var furnuculus = new Furnunculus(wand, randomGenerator);
 potter.addSpell(furnuculus.name, furnuculus.callback);
 
-var rictusempra = new Rictusempra();
+var rictusempra = new Rictusempra(wand, animator);
 potter.addSpell(rictusempra.name, rictusempra.callback);
 
 var obscuro = new Obscuro(animator, wand, flasher);
@@ -67,6 +67,12 @@ potter.addSpell(petrificusTotalus.name, petrificusTotalus.callback);
 
 var stupefy = new Stupefy(animator, wand, flasher);
 potter.addSpell(stupefy.name, stupefy.callback);
+
+var finite = new FiniteIncantatem(wand);
+potter.addSpell(finite.name, finite.callback);
+
+var peskipiksiPesternomi = new PeskipiksiPesternomi(wand);
+potter.addSpell(peskipiksiPesternomi.name, peskipiksiPesternomi.callback);
 
 potter.startListening();
 
