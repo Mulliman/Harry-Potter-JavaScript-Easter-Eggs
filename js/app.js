@@ -18,6 +18,9 @@ var words = "avada kedavra, crucio, engorgio, reducio, evanesco, lumos, nox, fli
 var aparecium = new Aparecium(wand, words);
 potter.addSpell(aparecium.name, aparecium.callback);
 
+var wingardium = new WingardiumLeviosa(wand);
+potter.addSpell(wingardium.name, wingardium.callback);
+
 var avada = new AvadaKedavra(wand, flasher);
 potter.addSpell(avada.name, avada.callback);
 

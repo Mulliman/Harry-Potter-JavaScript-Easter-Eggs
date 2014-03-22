@@ -60,4 +60,9 @@
          
         return codes.toString();
     }
+
+    // Stop the page moving when space is pressed
+    window.onkeydown = function (e) {
+        return !(e.keyCode == 32);
+    };
 };
