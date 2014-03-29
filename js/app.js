@@ -11,7 +11,8 @@ var wand = new Wand(animator);
 
 var potter = new HarryPotter(wand);
 
-var avis = new Avis();
+var birds = ["img/blue-bird.png", "img/red-bird.png", "img/yellow-bird.png"];
+var avis = new Avis(wand, randomGenerator, birds);
 potter.addSpell(avis.name, avis.callback);
 
 var words = "avada kedavra, crucio, engorgio, reducio, evanesco, lumos, nox, flipendo, furnuculus, rictusempra, obscuro, orchideous, petrificus totalus";

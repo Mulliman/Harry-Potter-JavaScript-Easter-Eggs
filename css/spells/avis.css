@@ -1,0 +1,8 @@
+﻿.bird{
+    position:absolute;
+    z-index: 100;
+}
+
+.bird img{
+    max-width:100%;
+}
