@@ -78,6 +78,18 @@ potter.addSpell(finite.name, finite.callback);
 var peskipiksiPesternomi = new PeskipiksiPesternomi(wand);
 potter.addSpell(peskipiksiPesternomi.name, peskipiksiPesternomi.callback);
 
+
+// Objects
+
+var insults = ["You smell!", "If you were a language, you'd be PHP.", "You're so slow, they call you Python.", "Your memory is so leaky, C++ beats you at quizzes"];
+//var names = ["Sam", "Harry", "Ron", "Hermione", "Fred", "George"];
+var spellNames = getSpellNames(potter);
+
+var maraudersMap = new MaraudersMap(wand, randomGenerator, insults, spellNames);
+potter.addSpell(maraudersMap.name, maraudersMap.callback);
+potter.addSpell(maraudersMap.upToNoGoodName, maraudersMap.upToNoGood);
+potter.addSpell(maraudersMap.mischiefManagedName, maraudersMap.mischiefManaged);
+
 potter.startListening();
 
 var amountOfSpells = potter.spells.length;
@@ -90,5 +102,20 @@ for (var i = 0; i < amountOfSpells; i++) {
     element.html(spell.code);
 
     $("body").append(element);
+}
+
+function getSpellNames(potterInstance) {
+    var amountOfSpells = potterInstance.spells.length;
+
+    var spellNames = [];
+
+    for (var i = 0; i < amountOfSpells; i++) {
+
+        var spell = potterInstance.spells[i];
+        
+        spellNames.push(spell.name);
+    }
+
+    return spellNames;
 }
 

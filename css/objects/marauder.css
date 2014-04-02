@@ -1,0 +1,64 @@
+﻿.marauders-map{
+    position:absolute;
+    top:10%;
+    bottom:10%;
+    left: 10%;
+    right:10%;
+    text-align:center;
+    font-family: 'Modern Antiqua', 'Monotype Corsiva', 'Apple Chancery', 'ITC Zapf Chancery', 'URW Chancery L', cursive;
+}
+
+.marauders-map .inner{
+    position:relative;
+    display:inline-block;
+    margin:2% 0;
+    padding:0;
+    height:96%;
+    background: #efc;
+    overflow: hidden;
+    text-align:left;
+}
+
+.marauders-map .inner .insult{
+    position:absolute;
+    font-size: 1.5em;
+    left: 10%;
+    right: 10%;
+    top: 33%;
+    text-align:center;
+}
+
+.marauders-map:before{
+    content: ' ';
+    display:inline-block;
+    width: 94px;
+    height:100%;
+    border: 3px solid #9A8;
+    border-radius: 10px;
+    position:relative;
+    margin: 0 0 0 auto;
+    background: #efc;
+}
+
+.marauders-map:after{
+    content: ' ';
+    display:inline-block;
+    width: 94px;
+    height:100%;
+    border: 3px solid #9A8;
+    border-radius: 10px;
+    position:relative;
+    margin: 0 auto 0 0;
+    background: #efc;
+}
+
+.marauders-map .dot{
+    position:absolute;
+    width:200px;
+    display:block;
+    font-size: 1.3em;
+}
+
+.marauders-map .dot:before{
+    content: '\2022 ';
+}

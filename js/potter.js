@@ -8,6 +8,7 @@
 
     self.addSpell = function (name, callback) {
         var spell = {
+            name: name,
             code: getCodes(name),
             callback: callback
         };
